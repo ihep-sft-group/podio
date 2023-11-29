@@ -4,6 +4,8 @@
 #ifndef {{ package_name.upper() }}_{{ class.bare_type }}OBJ_H
 #define {{ package_name.upper() }}_{{ class.bare_type }}OBJ_H
 
+#include <memory_resource>
+
 // data model specific includes
 #include "{{ incfolder }}{{ class.bare_type }}Data.h"
 {% for include in includes_obj %}
@@ -44,7 +46,7 @@ public:
   {{ relation.full_type }}* m_{{ relation.name }}{nullptr};
 {% endfor %}
 {% for relation in OneToManyRelations + VectorMembers %}
-  std::vector<{{ relation.full_type }}>* m_{{ relation.name }}{nullptr};
+  std::pmr::vector<{{ relation.full_type }}>* m_{{ relation.name }}{nullptr};
 {% endfor %}
 };
 {% endwith %}

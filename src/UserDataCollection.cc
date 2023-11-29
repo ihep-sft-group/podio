@@ -21,7 +21,7 @@ namespace {
     CollectionBufferFactory::mutInstance().registerCreationFunc(
         userDataCollTypeName<T>(), UserDataCollection<T>::schemaVersion, [](bool) {
           return podio::CollectionReadBuffers{
-              new std::vector<T>(),
+              new std::pmr::vector<T>(),
               nullptr,
               nullptr,
               podio::UserDataCollection<T>::schemaVersion,
@@ -32,7 +32,7 @@ namespace {
               [](podio::CollectionReadBuffers& buffers) {
                 buffers.data = podio::CollectionWriteBuffers::asVector<T>(buffers.data);
               },
-              [](podio::CollectionReadBuffers& buffers) { delete static_cast<std::vector<T>*>(buffers.data); }};
+              [](podio::CollectionReadBuffers& buffers) { delete static_cast<std::pmr::vector<T>*>(buffers.data); }};
         });
 
     // For now passing the same schema version for from and current versions

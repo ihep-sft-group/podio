@@ -6,6 +6,7 @@
 
 #include <functional>
 #include <memory>
+#include <memory_resource>
 #include <string>
 #include <string_view>
 #include <utility>
@@ -16,7 +17,7 @@ namespace podio {
 class CollectionBase;
 
 template <typename T>
-using UVecPtr = std::unique_ptr<std::vector<T>>;
+using UVecPtr = std::unique_ptr<std::pmr::vector<T>>;
 
 using CollRefCollection = std::vector<UVecPtr<podio::ObjectID>>;
 using VectorMembersInfo = std::vector<std::pair<std::string, void*>>;
@@ -32,14 +33,14 @@ struct CollectionWriteBuffers {
   VectorMembersInfo* vectorMembers{nullptr};
 
   template <typename DataT>
-  std::vector<DataT>* dataAsVector() {
+  std::pmr::vector<DataT>* dataAsVector() {
     return asVector<DataT>(data);
   }
 
   template <typename T>
-  static std::vector<T>* asVector(void* raw) {
+  static std::pmr::vector<T>* asVector(void* raw) {
     // Are we at a beach? I can almost smell the C...
-    return *static_cast<std::vector<T>**>(raw);
+    return *static_cast<std::pmr::vector<T>**>(raw);
   }
 };
 
@@ -77,14 +78,14 @@ struct CollectionReadBuffers {
   }
 
   template <typename DataT>
-  std::vector<DataT>* dataAsVector() {
+  std::pmr::vector<DataT>* dataAsVector() {
     return asVector<DataT>(data);
   }
 
   template <typename T>
-  static std::vector<T>* asVector(void* raw) {
+  static std::pmr::vector<T>* asVector(void* raw) {
     // Are we at a beach? I can almost smell the C...
-    return static_cast<std::vector<T>*>(raw);
+    return static_cast<std::pmr::vector<T>*>(raw);
   }
 
   CreateFuncT createCollection{};

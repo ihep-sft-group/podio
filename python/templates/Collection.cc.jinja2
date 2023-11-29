@@ -169,6 +169,10 @@ podio::CollectionWriteBuffers {{ collection_type }}::getBuffers() {
 {{ macros.vectorized_access(class, member) }}
 {% endfor %}
 
+std::pmr::vector<{{ class.bare_type }}Data> {{ collection_type }}::data() const {
+  return m_storage.getdata();
+}
+
 size_t {{ collection_type }}::getDatamodelRegistryIndex() const {
   return {{ package_name }}::meta::DatamodelRegistryIndex::value();
 }

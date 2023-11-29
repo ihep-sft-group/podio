@@ -61,7 +61,7 @@ PODIO_ADD_USER_TYPE(uint32_t)
 PODIO_ADD_USER_TYPE(uint64_t)
 
 /** Collection of basic types for additional user data not defined in the EDM.
- *  The data is stored in an std::vector<basic_type>. Supported are all basic types supported in
+ *  The data is stored in an std::pmr::vector<basic_type>. Supported are all basic types supported in
  *  PODIO, i.e. float, double and 8-64 bit fixed size signed and unsigned integers - @see SupportedUserDataTypes.
  *  @author F.Gaede, DESY
  *  @date Sep 2021
@@ -70,11 +70,11 @@ template <typename BasicType, typename = EnableIfSupportedUserType<BasicType>>
 class UserDataCollection : public CollectionBase {
 
 private:
-  std::vector<BasicType> _vec{};
+  std::pmr::vector<BasicType> _vec{};
   // Pointer to the actual storage, necessary for I/O. In order to have
   // simpler move-semantics this will be set and properly initialized on
   // demand during the call to getBuffers
-  std::vector<BasicType>* _vecPtr{nullptr};
+  std::pmr::vector<BasicType>* _vecPtr{nullptr};
   uint32_t m_collectionID{0};
   CollRefCollection m_refCollections{};
   VectorMembersInfo m_vecmem_info{};
@@ -82,7 +82,7 @@ private:
 public:
   UserDataCollection() = default;
   /// Constructor from an existing vector (wich will be moved from!)
-  UserDataCollection(std::vector<BasicType>&& vec) : _vec(std::move(vec)) {
+  UserDataCollection(std::pmr::vector<BasicType>&& vec) : _vec(std::move(vec)) {
   }
   UserDataCollection(const UserDataCollection&) = delete;
   UserDataCollection& operator=(const UserDataCollection&) = delete;
@@ -195,25 +195,25 @@ public:
     return DatamodelRegistry::NoDefinitionNecessary;
   }
 
-  // ----- some wrapers for std::vector and access to the complete std::vector (if really needed)
+  // ----- some wrapers for std::pmr::vector and access to the complete std::pmr::vector (if really needed)
 
-  typename std::vector<BasicType>::iterator begin() {
+  typename std::pmr::vector<BasicType>::iterator begin() {
     return _vec.begin();
   }
-  typename std::vector<BasicType>::iterator end() {
+  typename std::pmr::vector<BasicType>::iterator end() {
     return _vec.end();
   }
-  typename std::vector<BasicType>::const_iterator begin() const {
+  typename std::pmr::vector<BasicType>::const_iterator begin() const {
     return _vec.begin();
   }
-  typename std::vector<BasicType>::const_iterator end() const {
+  typename std::pmr::vector<BasicType>::const_iterator end() const {
     return _vec.end();
   }
 
-  typename std::vector<BasicType>::reference operator[](size_t idx) {
+  typename std::pmr::vector<BasicType>::reference operator[](size_t idx) {
     return _vec[idx];
   }
-  typename std::vector<BasicType>::const_reference operator[](size_t idx) const {
+  typename std::pmr::vector<BasicType>::const_reference operator[](size_t idx) const {
     return _vec[idx];
   }
 
@@ -225,12 +225,12 @@ public:
   }
 
   /// access to the actual data vector
-  typename std::vector<BasicType>& vec() {
+  typename std::pmr::vector<BasicType>& vec() {
     return _vec;
   }
 
   /// const access to the actual data vector
-  const typename std::vector<BasicType>& vec() const {
+  const typename std::pmr::vector<BasicType>& vec() const {
     return _vec;
   }
 };

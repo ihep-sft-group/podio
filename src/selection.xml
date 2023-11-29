@@ -18,6 +18,26 @@
     <class name="std::vector<std::tuple<uint32_t, std::string, bool, unsigned int>>"/>
     <class name="std::vector<std::tuple<uint32_t, std::string, bool, unsigned>>"/>
     <class name="std::vector<std::tuple<uint32_t, std::string, bool>>"/>
+    <class name="std::vector<std::tuple<unsigned int, std::string, bool, unsigned int>>"/>
+    <class name="std::pmr::vector<int>"/>
+    <class name="std::pmr::vector<int8_t>"/>
+    <class name="std::pmr::vector<int16_t>"/>
+    <class name="std::pmr::vector<int32_t>"/>
+    <class name="std::pmr::vector<int64_t>"/>
+    <class name="std::pmr::vector<uint8_t>"/>
+    <class name="std::pmr::vector<uint16_t>"/>
+    <class name="std::pmr::vector<uint32_t>"/>
+    <class name="std::pmr::vector<uint64_t>"/>
+    <class name="std::pmr::vector<double>"/>
+    <class name="std::pmr::vector<float>"/>
+    <class name="std::pmr::vector<std::tuple<int, std::string, bool, unsigned int>>"/>
+    <class name="std::pmr::vector<std::tuple<int, std::string, bool, unsigned>>"/>
+    <class name="std::pmr::vector<std::tuple<int, std::string, bool>>"/>
+    <class name="std::pmr::vector<std::tuple<std::string, std::string>>"/>
+    <class name="std::pmr::vector<std::tuple<uint32_t, std::string, bool, unsigned int>>"/>
+    <class name="std::pmr::vector<std::tuple<uint32_t, std::string, bool, unsigned>>"/>
+    <class name="std::pmr::vector<std::tuple<uint32_t, std::string, bool>>"/>
+    <class name="std::pmr::vector<std::tuple<unsigned int, std::string, bool, unsigned int>>"/>
     <class name="podio::CollectionBase"/>
     <class name="podio::CollectionIDTable">
         <field name="m_mutex" transient="true"/>
@@ -25,6 +45,8 @@
     <class name="podio::version::Version"/>
     <class name="podio::ObjectID"/>
     <class name="vector<podio::ObjectID>"/>
+    <class name="std::pmr::vector<podio::ObjectID>"/>
+    <class name="vector<podio::ObjectID, pmr::polymorphic_allocator<podio::ObjectID>>"/>
     <class name="podio::UserDataCollection<float>"/>
     <class name="podio::UserDataCollection<double>"/>
     <class name="podio::UserDataCollection<int8_t>"/>

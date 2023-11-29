@@ -162,6 +162,8 @@ public:
   std::vector<{{ member.full_type }}> {{ member.name }}(const size_t nElem = 0) const;
 {% endfor %}
 
+  std::pmr::vector<{{ class.bare_type }}Data> data() const;
+
 private:
   // For setReferences, we need to give our own CollectionData access to our
   // private entries. Otherwise we would need to expose a public member function
@@ -190,7 +192,7 @@ Mutable{{ class.bare_type }} {{ class.bare_type }}Collection::create(Args&&... a
 {% if OneToManyRelations or VectorMembers %}
   // Need to initialize the relation vectors manually for the {ObjectID, {{class.bare_type}}Data} constructor
 {% for relation in OneToManyRelations + VectorMembers %}
-  obj->m_{{ relation.name }} = new std::vector<{{ relation.full_type }}>();
+  obj->m_{{ relation.name }} = new std::pmr::vector<{{ relation.full_type }}>();
 {% endfor %}
   m_storage.createRelations(obj);
 {% endif %}

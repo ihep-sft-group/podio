@@ -10,6 +10,8 @@
 #include "TFile.h"
 #include "TTree.h"
 
+#include <memory_resource>
+
 namespace podio {
 ROOTWriter::ROOTWriter(const std::string& filename, EventStore* store) :
     m_filename(filename),
